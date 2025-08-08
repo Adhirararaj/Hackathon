@@ -5,9 +5,9 @@ import './globals.css'
 import Providers from './providers'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
+  title: 'Vaantra',
+  description: 'A web based platform for multilingual awareness and activation',
+  keywords: ['Vaantra', 'awareness', 'activation', 'multilingual'],
 }
 
 export default function RootLayout({
