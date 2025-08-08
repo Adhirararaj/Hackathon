@@ -14,23 +14,35 @@ const analyticsSchema = new mongoose.Schema({
     totalQuestions: { type: Number, default: 0 },
     totalDocuments: { type: Number, default: 0 },
     
-    // By language
+    // Fix: Properly define the array structure
     languageDistribution: [{
-      language: String,
-      count: Number
+      language: {
+        type: String,
+        enum: ['en', 'hi', 'te', 'ta', 'bn', 'mr', 'gu']
+      },
+      count: {
+        type: Number,
+        default: 0
+      }
     }],
     
-    // By input type
+    // Fix: Properly define the array structure  
     inputTypeDistribution: [{
-      type: String,
-      count: Number
+      type: {
+        type: String,
+        enum: ['text', 'voice', 'doc']
+      },
+      count: {
+        type: Number,
+        default: 0
+      }
     }],
     
     // Response times
     avgResponseTime: { type: Number, default: 0 },
     
     // Success rates
-    successRate: { type: Number, default: 0 }
+    successRate: { type: Number, default: 0, min: 0, max: 1 }
   },
   
   createdAt: {
