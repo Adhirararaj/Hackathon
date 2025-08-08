@@ -1,0 +1,108 @@
+.shell {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  background: #f6f7f9;
+}
+
+.sidebar {
+  background: #fff;
+  border-right: 1px solid #e6e8ec;
+  padding: 16px;
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: #10b981;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+.brand-text { font-weight: 600; }
+
+.language { margin: 10px 0 16px; }
+.select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #e6e8ec;
+  border-radius: 8px;
+  background: white;
+}
+
+.nav { display: grid; gap: 6px; }
+.nav-link {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #1f2937;
+  text-decoration: none;
+}
+.nav-link:hover { background: #f2f3f6; }
+.nav-link.active { background: #10b981; color: white; }
+
+.content { display: grid; grid-template-rows: 56px 1fr; }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e6e8ec;
+  background: #fff;
+  padding: 0 12px;
+}
+.menu-btn {
+  display: none;
+  font-size: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.spacer { flex: 1; }
+.user-area { display: flex; align-items: center; gap: 8px; }
+.user-label { color: #6b7280; font-size: 14px; }
+
+.main { padding: 16px; }
+
+.btn {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.btn:hover { filter: brightness(0.95); }
+.btn.outline {
+  background: white;
+  color: #111827;
+  border: 1px solid #d1d5db;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* Responsive sidebar */
+@media (max-width: 900px) {
+  .shell { grid-template-columns: 1fr; }
+  .sidebar {
+    position: fixed; inset: 0 40% 0 0; transform: translateX(-100%);
+    transition: transform .25s ease; z-index: 20;
+  }
+  body.open .sidebar { transform: translateX(0); }
+  .menu-btn { display: block; }
+}
