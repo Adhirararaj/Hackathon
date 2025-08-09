@@ -1,84 +1,49 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  // Basic Information
-  name: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    lowercase: true
-  },
-  phone: {
-    type: String,
-    required: false
-  },
-  
-  // Account Information (from activate page)
-  account: {
-    accountNo: {
-      type: String,
-      required: false,
-      unique: true,
-      sparse: true
-    },
-    ifscCode: {
-      type: String,
-      required: false,
-      uppercase: true
-    },
-    branch: {
-      type: String,
-      required: false,
-      trim: true
-    },
-    isLinked: {
-      type: Boolean,
-      default: false
-    }
-  },
-  
-  // User Preferences
+
   language: {
     type: String,
-    enum: ['en', 'hi', 'te', 'ta', 'bn', 'mr', 'gu'],
-    default: 'en'
+    enum: ['en', 'hi', 'mr', 'ta', 'bn', 'te', 'gu'],
+    default: 'en',
+    required: true
   },
   
-  // Authentication
-  isActive: {
+  phoneNo: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+
+  fullname: {
+    type: String,
+  },
+  accountNo: {
+    type: String,
+    required: false,
+  },
+  ifscCode: {
+    type: String,
+    required: false,
+  },
+  branch: {
+    type: String,
+    required: false,
+  },
+
+  isLinked: {
     type: Boolean,
-    default: true
+    default: false
   },
   
-  // Statistics
-  totalQuestions: {
-    type: Number,
-    default: 0
-  },
-  totalDocuments: {
-    type: Number,
-    default: 0
-  },
-  
-  // Timestamps
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  }
+  queries: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "query"
+  }],
+
 });
 
-userSchema.pre('save', function(next) {
-  this.updatedAt = Date.now();
-  next();
-});
-
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('user', userSchema);
