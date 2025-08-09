@@ -27,8 +27,7 @@ const Login: React.FC = () => {
       if (!data.success) {
         setError(data.message || 'Login failed')
       } else {
-        navigate('/login')
-        navigate(0)
+        navigate('/home', { replace: true })
       }
     } catch (err) {
       setError('Network error. Please try again.')
