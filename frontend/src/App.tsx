@@ -3,6 +3,10 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Home from './pages/Home'
+import Awareness from './pages/Awareness'
+import About from './pages/About'
+import AccountActivation from './pages/AccountActivation'
+import Navigation from './components/Navigation'
 import { AuthProvider, useAuth } from './context/auth'
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
@@ -10,6 +14,17 @@ function RequireAuth({ children }: { children: React.ReactNode }) {
   if (loading) return <div className="container"><div className="card">Checking session…</div></div>
   if (!user) return <Navigate to="/login" replace />
   return <>{children}</>
+}
+
+function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="app-layout">
+      <Navigation />
+      <main className="main-content">
+        {children}
+      </main>
+    </div>
+  )
 }
 
 export default function App() {
@@ -23,7 +38,39 @@ export default function App() {
           path="/home"
           element={
             <RequireAuth>
-              <Home />
+              <Layout>
+                <Home />
+              </Layout>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/awareness"
+          element={
+            <RequireAuth>
+              <Layout>
+                <Awareness />
+              </Layout>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <RequireAuth>
+              <Layout>
+                <About />
+              </Layout>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/account-activation"
+          element={
+            <RequireAuth>
+              <Layout>
+                <AccountActivation />
+              </Layout>
             </RequireAuth>
           }
         />

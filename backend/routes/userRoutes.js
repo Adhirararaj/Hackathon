@@ -8,6 +8,6 @@ userRoutes.post("/signup", signup);
 userRoutes.post("/login", login);
 userRoutes.get("/check", protectedRoute, checkAuth);
 userRoutes.post("/logout", protectedRoute, logout);
-userRoutes.post("/account-activate", protectedRoute, accountActivation);
+userRoutes.post("/activate-account", protectedRoute, accountActivation);
 
 module.exports = userRoutes;

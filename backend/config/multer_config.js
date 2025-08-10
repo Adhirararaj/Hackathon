@@ -36,9 +36,26 @@ const pdfFileFilter = (req, file, cb) => {
   }
 };
 
+const audioFileFilter = (req, file, cb) => {
+  const allowedMimeTypes = ['audio/wav', 'audio/mp3', 'audio/mpeg', 'audio/webm', 'audio/ogg'];
+  const allowedExtensions = new Set(['.wav', '.mp3', '.mpeg', '.webm', '.ogg']);
+  const fileExt = path.extname(file.originalname).toLowerCase();
+
+  if (allowedMimeTypes.includes(file.mimetype) || allowedExtensions.has(fileExt)) {
+    cb(null, true);
+  } else {
+    cb(new Error('Only audio files are allowed'), false);
+  }
+};
+
 const pdfUpload = multer({
   storage,
   fileFilter: pdfFileFilter,
 });
 
-module.exports = { pdfUpload };
+const audioUpload = multer({
+  storage,
+  fileFilter: audioFileFilter,
+});
+
+module.exports = { pdfUpload, audioUpload };

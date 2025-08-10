@@ -79,13 +79,30 @@ const accountActivation = async (req, res) => {
         
         const userId = req.user._id;
 
-        const { accountNo, ifscCode, branch } = req.body;
-        const user = await userModel.findOneAndUpdate({ _id: userId }, {
+        const { accountNo, ifscCode, branch, accountType, nomineeName, nomineeRelation } = req.body;
+        
+        // Validate required fields
+        if (!accountNo || !ifscCode || !branch) {
+            return res.json({ success: false, message: "Account number, IFSC code, and branch are required" });
+        }
+
+        const updateData = {
             accountNo,
             ifscCode,
             branch,
             isLinked: true
-        }, {new: true})
+        };
+
+        // Add optional fields if provided
+        if (accountType) updateData.accountType = accountType;
+        if (nomineeName) updateData.nomineeName = nomineeName;
+        if (nomineeRelation) updateData.nomineeRelation = nomineeRelation;
+
+        const user = await userModel.findOneAndUpdate(
+            { _id: userId }, 
+            updateData, 
+            { new: true }
+        );
 
         return res.json({ success: true, user, message: "Account activated successfully" });
 
